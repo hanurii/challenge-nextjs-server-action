@@ -33,5 +33,10 @@ input {
 }
 
 .inputBox {
-  @apply flex items-center gap-2 border-2 rounded-4xl border-[#e1e0de] px-3 py-2 w-sm text-sm;
+  @apply flex items-center gap-2 border-2 rounded-4xl  px-3 py-2 w-sm text-sm
+  border-[#e1e0de];
+}
+
+.inputBoxWithError {
+  @apply flex items-center gap-2 border-2 rounded-4xl px-3 py-2 w-sm text-sm border-red-300;
 }

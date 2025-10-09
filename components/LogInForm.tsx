@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import LogInButton from "./LogInButton";
 import { FormResponse } from "../types/response";
@@ -13,11 +13,26 @@ interface Props {
 }
 
 export default function LogInForm({ action }: Props) {
+  const [inputValues, setInputValues] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
   const [state, formAction] = useActionState(action, {
     errorCode: null,
     errorMsg: null,
     result: null,
   });
+
+  const onChangeValue = (e) => {
+    const key = e.target.name;
+    const value = e.target.value;
+
+    setInputValues((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
   return (
     <form className="flex flex-col gap-3" action={formAction}>
@@ -32,7 +47,13 @@ export default function LogInForm({ action }: Props) {
           <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
         </svg>
 
-        <input placeholder="Email" name="email" />
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          value={inputValues.email}
+          onChange={onChangeValue}
+        />
       </div>
       <div className="inputBox">
         <svg
@@ -44,9 +65,15 @@ export default function LogInForm({ action }: Props) {
           <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
         </svg>
 
-        <input placeholder="Username" name="username" />
+        <input
+          type="text"
+          placeholder="Username"
+          name="username"
+          value={inputValues.username}
+          onChange={onChangeValue}
+        />
       </div>
-      <div className="inputBox">
+      <div className={`${state.errorMsg ? "inputBoxWithError" : "inputBox"}`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -60,7 +87,13 @@ export default function LogInForm({ action }: Props) {
           />
         </svg>
 
-        <input placeholder="Password" name="password" />
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={inputValues.password}
+          onChange={onChangeValue}
+        />
       </div>
 
       {state.errorMsg && <ErrorMessage message={state.errorMsg} />}
