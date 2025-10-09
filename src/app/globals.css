@@ -29,7 +29,7 @@ body {
 }
 
 input {
-  @apply outline-0;
+  @apply outline-0 w-full;
 }
 
 .inputBox {
