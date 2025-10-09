@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { ChangeEvent, useActionState, useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import LogInButton from "./LogInButton";
 import { FormResponse } from "../types/response";
@@ -24,7 +24,7 @@ export default function LogInForm({ action }: Props) {
     result: null,
   });
 
-  const onChangeValue = (e) => {
+  const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     const key = e.target.name;
     const value = e.target.value;
 
