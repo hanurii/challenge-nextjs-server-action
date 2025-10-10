@@ -3,26 +3,15 @@
 import { ChangeEvent, useActionState, useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import LogInButton from "./LogInButton";
-import { FormResponse } from "../types/response";
+import { createAccount } from "@/app/actions";
 
-interface Props {
-  action: (
-    prevState: FormResponse,
-    formData: FormData
-  ) => Promise<FormResponse>;
-}
-
-export default function LogInForm({ action }: Props) {
+export default function LogInForm() {
   const [inputValues, setInputValues] = useState({
     email: "",
     username: "",
     password: "",
   });
-  const [state, formAction] = useActionState(action, {
-    errorCode: null,
-    errorMsg: null,
-    result: null,
-  });
+  const [state, formAction] = useActionState(createAccount, null);
 
   const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     const key = e.target.name;
@@ -36,7 +25,11 @@ export default function LogInForm({ action }: Props) {
 
   return (
     <form className="flex flex-col gap-3" action={formAction}>
-      <div className="inputBox">
+      <div
+        className={`${
+          state?.fieldErrors?.email ? "inputBoxWithError" : "inputBox"
+        }`}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -55,7 +48,15 @@ export default function LogInForm({ action }: Props) {
           onChange={onChangeValue}
         />
       </div>
-      <div className="inputBox">
+      {state?.fieldErrors?.email && (
+        <ErrorMessage messages={state?.fieldErrors.email} />
+      )}
+
+      <div
+        className={`${
+          state?.fieldErrors?.username ? "inputBoxWithError" : "inputBox"
+        }`}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -73,7 +74,15 @@ export default function LogInForm({ action }: Props) {
           onChange={onChangeValue}
         />
       </div>
-      <div className={`${state.errorMsg ? "inputBoxWithError" : "inputBox"}`}>
+      {state?.fieldErrors?.username && (
+        <ErrorMessage messages={state?.fieldErrors.username} />
+      )}
+
+      <div
+        className={`${
+          state?.fieldErrors?.password ? "inputBoxWithError" : "inputBox"
+        }`}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -96,9 +105,11 @@ export default function LogInForm({ action }: Props) {
         />
       </div>
 
-      {state.errorMsg && <ErrorMessage message={state.errorMsg} />}
+      {state?.fieldErrors?.password && (
+        <ErrorMessage messages={state?.fieldErrors.password} />
+      )}
       <LogInButton />
-      {state.result && (
+      {state?.success && (
         <div className="flex items-center gap-2 bg-[#02b37a] p-4 rounded-xl text-sm font-bold">
           <svg
             xmlns="http://www.w3.org/2000/svg"

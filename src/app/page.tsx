@@ -8,19 +8,6 @@ export interface LogInFormData {
 }
 
 export default function Home() {
-  async function onSubmit(prevState: FormResponse, formData: FormData) {
-    "use server";
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    const password = formData.get("password");
-
-    if (password !== "12345") {
-      return { errorCode: null, errorMsg: "Wrong password ", result: null };
-    } else {
-      return { errorCode: null, errorMsg: null, result: "OK" };
-    }
-  }
-
   return (
     <div className="">
       <img
@@ -29,7 +16,7 @@ export default function Home() {
         alt="image"
       />
 
-      <LogInForm action={onSubmit} />
+      <LogInForm />
     </div>
   );
 }
