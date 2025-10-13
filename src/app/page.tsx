@@ -1,5 +1,5 @@
 import LogInForm from "../../components/LogInForm";
-import { FormResponse } from "../../types/response";
+import "@/lib/db";
 
 export interface LogInFormData {
   email: string;
