@@ -1,5 +1,4 @@
 import LogInForm from "../../components/LogInForm";
-import "@/lib/db";
 
 export interface LogInFormData {
   email: string;

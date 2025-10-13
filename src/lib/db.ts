@@ -28,6 +28,4 @@ async function test() {
   console.log("like", like);
 }
 
-test();
-
 export default db;
