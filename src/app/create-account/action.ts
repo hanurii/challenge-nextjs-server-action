@@ -73,7 +73,15 @@ const formSchema = z
     }
   });
 
-export async function createAccountV2(prevState: any, formData: FormData) {
+export async function createAccountV2(
+  prevState: z.ZodFlattenedError<{
+    username: string;
+    email: string;
+    password: string;
+    confirm_password: string;
+  }> | null,
+  formData: FormData
+) {
   const data = {
     username: formData.get("username"),
     email: formData.get("email"),

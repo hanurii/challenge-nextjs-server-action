@@ -51,7 +51,16 @@ const formSchema = z
     }
   });
 
-export default async function login(prevState: any, formData: FormData) {
+export default async function login(
+  prevState: z.ZodFlattenedError<{
+    email: string;
+    password: string;
+  }> | null,
+  formData: FormData
+): Promise<z.ZodFlattenedError<{
+  email: string;
+  password: string;
+}> | null> {
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),
@@ -63,4 +72,7 @@ export default async function login(prevState: any, formData: FormData) {
     console.log("result", z.flattenError(result.error));
     return z.flattenError(result.error);
   }
+
+  // 성공 시 null 반환 (에러가 없음을 의미)
+  return null;
 }
