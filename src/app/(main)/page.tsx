@@ -1,6 +1,7 @@
 import db from "@/lib/db";
 import Tweet from "../../../components/Tweet";
 import Pagination from "../../../components/Pagination";
+import { redirect } from "next/navigation";
 
 async function getTweets(page: number) {
   const tweets = await db.tweet.findMany({
@@ -31,7 +32,12 @@ export default async function Products({
   searchParams: Promise<{ page: string }>;
 }) {
   const { page: pageStr } = await searchParams;
-  const page = Number(pageStr);
+  let page = Number(pageStr);
+
+  if (!page) {
+    page = 1;
+  }
+
   const tweets = await getTweets(page);
 
   return (

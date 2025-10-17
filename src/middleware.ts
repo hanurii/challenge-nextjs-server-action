@@ -3,17 +3,18 @@ import getSession from "./lib/session";
 
 const possiblePathWithoutCookie: Record<string, boolean> = {
   "/create-account": true,
-  "log-in": true,
+  "/log-in": true,
 };
 
 export async function middleware(request: NextRequest) {
   // 로그인 정보가 없을 때 private page 접근 시 "/" 으로 이동
-  if (request.nextUrl.pathname === "/profile") {
+  if (request.nextUrl.pathname === "/") {
     const session = await getSession();
 
     if (!session.id) {
       const url = request.nextUrl.clone();
-      url.pathname = "/";
+      url.pathname = "/log-in";
+      url.search = "";
       return NextResponse.redirect(url);
     }
   }
@@ -23,12 +24,10 @@ export async function middleware(request: NextRequest) {
 
     if (session.id) {
       const url = request.nextUrl.clone();
-      url.pathname = "/products";
+      url.pathname = "/";
       return NextResponse.redirect(url);
     }
   }
-
-  // 세션 정보가 있을 땐 -> /create-account, /log-in 과 같은 page 접근 시 "/products" 로 이동
 }
 
 export const config = {

@@ -9,7 +9,7 @@ export default async function Pagination({ page }: { page: number }) {
         {pages.map((pageNumber) => (
           <Link
             key={pageNumber}
-            href={`/products?page=${pageNumber}`}
+            href={`/?page=${pageNumber}`}
             className={`${
               page === pageNumber && "bg-blue-400 rounded-lg"
             } px-6 py-1`}
