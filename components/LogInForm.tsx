@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useActionState, useState } from "react";
 import LogInButton from "./LogInButton";
-import { createAccount } from "@/app/actions";
+import { createAccount } from "@/app/(auth)/login-challenge/actions";
 import FormInput from "./Input";
 
 export default function LogInForm() {
