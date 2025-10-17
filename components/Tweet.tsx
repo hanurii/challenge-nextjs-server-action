@@ -1,4 +1,7 @@
+import Link from "next/link";
+
 interface TweetProps {
+  id: number;
   tweet: string;
   created_at: string;
   user: {
@@ -7,9 +10,12 @@ interface TweetProps {
   };
 }
 
-export default function Tweet({ tweet, created_at, user }: TweetProps) {
+export default function Tweet({ id, tweet, created_at, user }: TweetProps) {
   return (
-    <div className="p-5 border-1 border-[#2e4051]">
+    <Link
+      href={`/tweets/${id}`}
+      className="p-5 border-1 border-[#2e4051] hover:bg-[#1a222e]"
+    >
       <div className="flex items-center gap-2">
         <span className="font-semibold text-lg">{user.username}</span>
         <span className="text-xs text-gray-400">{user.email}</span>
@@ -54,6 +60,6 @@ export default function Tweet({ tweet, created_at, user }: TweetProps) {
           <span className="text-xs">5</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

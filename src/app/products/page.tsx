@@ -40,6 +40,7 @@ export default async function Products({
         {tweets.map((tweet) => (
           <Tweet
             key={tweet.id}
+            id={tweet.id}
             tweet={tweet.tweet}
             created_at={tweet.created_at.toString()}
             user={tweet.user}
