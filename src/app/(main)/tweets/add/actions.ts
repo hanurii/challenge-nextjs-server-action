@@ -15,7 +15,7 @@ const tweetSchema = z.object({
     .max(250),
 });
 
-export async function addTweet(prevState: any, formData: FormData) {
+export async function addTweet(_: unknown, formData: FormData) {
   const data = {
     tweet: formData.get("tweet"),
   };
