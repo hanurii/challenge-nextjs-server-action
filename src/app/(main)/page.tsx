@@ -1,7 +1,7 @@
 import db from "@/lib/db";
 import Tweet from "../../../components/Tweet";
 import Pagination from "../../../components/Pagination";
-import { redirect } from "next/navigation";
+import AddTweet from "../../../components/AddTweet";
 
 async function getTweets(page: number) {
   const tweets = await db.tweet.findMany({
@@ -42,6 +42,7 @@ export default async function Products({
 
   return (
     <div className="w-full h-screen bg-[#161e27] *:text-white">
+      <AddTweet />
       <div className="h-full flex flex-col p-5 border-1">
         {tweets.map((tweet) => (
           <Tweet
